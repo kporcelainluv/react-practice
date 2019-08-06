@@ -6,13 +6,15 @@ export const Gify = () => {
   const [inputText, setInputText] = useState("scrubs");
   const [query, setQuery] = useState("scrubs");
 
+  const [listOfGifs, setListOfGifs] = useState([]);
+
   useEffect(() => {
     const fetchUsers = () => {
       const url = new URL("https://api.giphy.com/v1/gifs/search");
       const params = {
         api_key: "GRTDQB888zEjwAMOjmf1QeV8Fn51IulA",
         q: query,
-        limit: 10,
+        limit: 1,
         contentType: "application/json",
         dataType: "json"
       };
@@ -21,7 +23,10 @@ export const Gify = () => {
       );
       fetch(url)
         .then(response => response.json())
-        .then(response => setData(response.data));
+        .then(response => {
+          const images = response.data;
+          setData(allImages => [...images, ...allImages]);
+        });
     };
     fetchUsers();
   }, [query]);
@@ -44,9 +49,8 @@ export const Gify = () => {
         </label>
         <button
           onClick={() => {
-            console.log("before", query);
             setQuery(inputText);
-            console.log("after", query);
+            setListOfGifs([...listOfGifs, { key: inputText }]);
           }}
           type="submit"
         >

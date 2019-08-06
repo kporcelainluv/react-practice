@@ -6,21 +6,21 @@ import styled from "styled-components";
 // import { ToDo } from "./Todo";
 // import { AdvancedCounter } from "./Counter2";
 // import { TodoTimer } from "./TimerTodo";
-import { Gify } from "./Gify.js";
+// import { Gify } from "./Gify.js";
+import { Age } from "./Age";
 
 const Wrap = styled.div`
   width: 900px;
   margin: auto;
-  background-color: #c2dfff;
   text-align: center;
 `;
-
+// eslint-disable-next-line
 const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
   color: palevioletred;
 `;
-
+// eslint-disable-next-line
 const Heading = styled.h1`
   font-size: 1.5em;
   text-align: center;
@@ -54,8 +54,11 @@ const App = () => {
       {/*  <Heading>Set timer for important tasks!</Heading>*/}
       {/*  <TodoTimer></TodoTimer>*/}
       {/*</Wrap>*/}
+      {/*<Wrap>*/}
+      {/*  <Gify />*/}
+      {/*</Wrap>*/}
       <Wrap>
-        <Gify />
+        <Age />
       </Wrap>
     </Wrap>
   );
