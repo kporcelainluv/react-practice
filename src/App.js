@@ -6,37 +6,32 @@ import { AdvancedCounter } from "./Counter2";
 import { TodoTimer } from "./TimerTodo";
 import { Gify } from "./Gify";
 import { Age } from "./Age";
+import { List } from "./List";
 
+const renderComponent = (link, path) => {
+  if (path === "") {
+    return <List link={link} />;
+  } else if (path === "counter") {
+    return <Counter />;
+  } else if (path === "advanced_counter") {
+    return <AdvancedCounter />;
+  } else if (path === "current_time") {
+    return <LocalDate />;
+  } else if (path === "todo_list") {
+    return <ToDo />;
+  } else if (path === "todo_list_with_timer") {
+    return <TodoTimer />;
+  } else if (path === "gify") {
+    return <Gify />;
+  } else if (path === "age") {
+    return <Age />;
+  }
+};
 
 export const App = () => {
-  return (
-    <div className="container">
-      {/*<h2 className="title"></h2>*/}
-      <div className="container">
-        <h2 className="subheading">Try to update the number</h2>
-        <Counter />
-      </div>
-      <div className="container">
-        <h2 className="subheading">The current time is:</h2>
-        <LocalDate />
-      </div>
-      <div className="container">
-        <h2 className="subheading">To be done:</h2>
-        <ToDo />
-      </div>
-      <div className="container">
-        <AdvancedCounter />
-      </div>
-      <div className="container">
-        <h2 className="subheading">Set timer for important tasks!</h2>
-        <TodoTimer />
-      </div>
-      <div className="container">
-        <Gify />
-      </div>
-      <div className="container">
-        <Age />
-      </div>
-    </div>
-  );
+  const currentLink = window.location.href;
+  const currentPath = window.location.href.split("/")[3];
+  console.log({ currentPath });
+
+  return <div>{renderComponent(currentLink, currentPath)}</div>;
 };

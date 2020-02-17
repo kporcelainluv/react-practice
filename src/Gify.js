@@ -31,15 +31,17 @@ export const Gify = () => {
     fetchUsers();
   }, [query]);
   return (
-    <div>
+    <div className="container">
       <form
+        style={{ margin: "auto" }}
         onSubmit={e => {
           e.preventDefault();
         }}
       >
         <label>
-          <h1>Just type the word in!</h1>
+          <h2 className="title">Type in a word and get a gif</h2>
           <input
+            className="input"
             type="text"
             value={inputText}
             onChange={e => {
@@ -48,6 +50,7 @@ export const Gify = () => {
           />
         </label>
         <button
+          className="button"
           onClick={() => {
             setQuery(inputText);
             setListOfGifs([...listOfGifs, { key: inputText }]);
@@ -58,11 +61,11 @@ export const Gify = () => {
         </button>
       </form>
 
-      <h1>Check it out!</h1>
+      <p className="subheading">Check it out!</p>
 
       {data.map(obj => {
         return (
-          <div key={obj.id}>
+          <div key={obj.id} style={{ margin: "auto" }}>
             <img
               src={obj.images.fixed_height.url}
               alt={obj.title}

@@ -1,28 +1,190 @@
 .container {
   width: 900px;
-  margin: auto;
-  text-align: center;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  color: #181919;
+  line-height: 35px;
+}
+@media (min-width: 320px) {
+  .container {
+    width: 350px;
+  }
+}
+
+@media (min-width: 750px) {
+  .container {
+    width: 700px;
+  }
 }
 
 .title {
-  font-size: 1.5em;
+  font-size: 25px;
   text-align: center;
-  color: palevioletred;
+  margin-bottom: 40px;
+}
+.project-list {
+  font-size: 20px;
+  margin: auto;
+}
+
+.project-list a {
+  color: #181919;
+  cursor: pointer;
 }
 
 .counter-button {
-  color: palevioletred;
+  color: #181919;
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
-  border: 2px solid palevioletred;
+  border: 2px solid #6a6b6c;
   border-radius: 3px;
 }
 
+.button {
+  background-color: #181919;
+  color: white;
+  padding: 13px 20px;
+  margin: 8px 20px;
+  border: none;
+  cursor: pointer;
+  width: 90px;
+}
+.button:hover {
+  background-color: #6a6b6c;
+}
+.input {
+  color: #6a6b6c;
+  width: 250px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.todo-delete {
+  background-color: #181919;
+  color: white;
+  padding: 7px 20px;
+  margin: 8px 20px;
+  border: none;
+  cursor: pointer;
+  width: 90px;
+  height: 40px;
+}
+.todo-delete:hover {
+  background-color: #6a6b6c;
+}
+
+.todo-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+.todo-list__element {
+  display: flex;
+  width: 375px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.element-wrap {
+  width: 350px;
+}
+.todo-checkbox {
+  margin-right: 10px;
+  padding: 8px;
+  height: 10px;
+  width: 10px;
+}
 .subheading {
-  font-size: 1.5em;
+  font-size: 20px;
   text-align: center;
-  color: #6d7b8d;
+  margin-bottom: 40px;
+}
+.todo-button {
+  background-color: #181919;
+  color: white;
+  padding: 5px 10px;
+  margin: 8px 5px;
+  border: none;
+  cursor: pointer;
+}
+.date {
+  font-size: 30px;
+  margin: 50px auto;
+}
+.todo-block {
+  display: flex;
+  flex-direction: row;
+  max-width: 375px;
+  margin-bottom: 30px;
+}
+.todo-block__buttons {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.todo-block__element {
+  width: 250px;
+}
+.input-container {
+  margin: auto;
+}
+.age-element {
+  margin: 5px;
+  display: flex;
+}
+.age-element__years {
+  margin-right: 30px;
+  background: #b5838d;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.age-element__months {
+  margin-right: 30px;
+  background: #6d6875;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.age-element__weeks {
+  margin-right: 30px;
+  background: #ffcdb2;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.age-element__days {
+  margin-right: 30px;
+  background: #ffb4a2;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.age-element__hours {
+  margin-right: 30px;
+  background: #e5989b;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.age-element__minutes {
+  margin-right: 30px;
+  background: #b5838d;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.age-element__seconds {
+  margin-right: 30px;
+  background: #6d6875;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 
 .radial-chart {
@@ -32,7 +194,7 @@
   opacity: 0;
 }
 .radial-chart-total {
-  /*opacity: 0.3;*/
+  opacity: 0.3;
 }
 .radial-chart-progress {
   transform: rotate(270deg);
@@ -42,40 +204,40 @@
 }
 .cicles {
   position: relative;
-  margin-top: 50px;
+  margin: 50px;
 }
 .circle-1 {
   position: absolute;
   top: 238px;
-  left: 375px;
+  left: 75px;
 }
 .circle-2 {
   position: absolute;
   top: 222px;
-  left: 358px;
+  left: 60px;
 }
 .circle-3 {
   position: absolute;
   top: 176px;
-  left: 313px;
+  left: 15px;
 }
 .circle-4 {
   position: absolute;
   top: 127px;
-  left: 267px;
+  left: -30px;
 }
 .circle-5 {
   position: absolute;
-  top: 85px;
-  left: 225px;
+  top: 81px;
+  left: -60px;
 }
 .circle-6 {
   position: absolute;
-  top: 45px;
-  left: 185px;
+  top: 36px;
+  left: -90px;
 }
 .circle-7 {
   position: absolute;
-  top: 0px;
-  left: 140px;
+  top: -17px;
+  left: -132px;
 }

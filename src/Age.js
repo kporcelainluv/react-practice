@@ -34,29 +34,48 @@ export const Age = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Enter your age</h1>
+    <div className="container">
+      <h2 className="title">Enter your age</h2>
       <form
+        style={{ margin: "auto" }}
         onSubmit={e => {
           e.preventDefault();
         }}
       >
         <input
+          className="input"
           type="date"
           onChange={e => {
             setAge(e.target.value);
           }}
         />
-        <button>Enter</button>
+        <button className="button">Enter</button>
+        <p>Your Birthday is: {age}</p>
 
-        {/*<h2>Your Birthday {age}</h2>*/}
-        {/*<h2>Years: {diffYears}</h2>*/}
-        {/*<h2>Months: {diffMonths}</h2>*/}
-        {/*<h2>Weeks: {diffWeeks}</h2>*/}
-        {/*<h2>Days: {diffDays}</h2>*/}
-        {/*<h2>Hours: {diffHours}</h2>*/}
-        {/*<h2>Minutes: {diffMinutes}</h2>*/}
-        {/*<h2>Seconds: {diffSeconds}</h2>*/}
+        <ul style={{ padding: "0" }}>
+          <li className="age-element">
+            <div className="age-element__years"></div> Years: {diffYears}
+          </li>
+          <li className="age-element">
+            <div className="age-element__months"></div> Months: {diffMonths}
+          </li>
+          <li className="age-element">
+            <div className="age-element__weeks"></div> Weeks: {diffWeeks}
+          </li>
+          <li className="age-element">
+            <div className="age-element__days"></div> Days: {diffDays}
+          </li>
+          <li className="age-element">
+            <div className="age-element__hours"></div> Hours: {diffHours}
+          </li>
+          <li className="age-element">
+            <div className="age-element__minutes"></div> Minutes: {diffMinutes}
+          </li>
+          <li className="age-element">
+            <div className="age-element__seconds"></div> Seconds: {diffSeconds}
+          </li>
+        </ul>
+
         <div className="cicles">
           <RadialChart
             radius={60}

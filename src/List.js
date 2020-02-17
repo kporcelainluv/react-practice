@@ -7,7 +7,7 @@ export const List = ({ link }) => {
       <h2 className="title">
         Learn and practice React.js with those exercises
       </h2>
-      <ul>
+      <ul className='project-list'>
         {projectsList.map(project => {
           const pathToComponent = `${link}${project.path}`;
           return (

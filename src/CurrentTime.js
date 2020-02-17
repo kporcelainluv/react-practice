@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import Moment from "react-moment";
 
 export const LocalDate = () => {
-  // eslint-disable-next-line
   const [state, setState] = useState(0);
 
   useEffect(() => {
@@ -11,5 +9,11 @@ export const LocalDate = () => {
     }, 1000);
   }, []);
 
-  return <div>{new Date().toLocaleTimeString()}</div>;
+  return (
+    <div className="container">
+      <div className="date">
+        Current time is {new Date().toLocaleTimeString()}
+      </div>
+    </div>
+  );
 };

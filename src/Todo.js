@@ -1,18 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import nanoid from "nanoid";
-
-const Li = styled.li`
-  text-align: left;
-  list-style-type: none;
-`;
-
-const Ul = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-`;
+import "./css/style.css";
 
 const toggleElement = (elements, index) => {
   return [
@@ -27,12 +15,19 @@ const deleteElements = (elements, index) => {
 };
 
 export const ToDo = () => {
-  const [state, setState] = useState("Wash the dishes");
-  // eslint-disable-next-line
+  const [state, setState] = useState("Make a to-do list in React.js");
   const [list, setList] = useState([]);
+
   return (
-    <div>
+    <div className="container">
+      <h2 className="title">Simple to-do list</h2>
+      <ul style={{ margin: "auto", marginBottom: "30px" }}>
+        <li>add item from input to the list of todos</li>
+        <li>delete item from that list</li>
+        <li> mark items as "done</li>
+      </ul>
       <form
+        style={{ margin: "auto" }}
         onSubmit={e => {
           e.preventDefault();
           setList([...list, { id: nanoid(), text: state, checked: false }]);
@@ -44,43 +39,50 @@ export const ToDo = () => {
             type="text"
             id="todo"
             value={state}
+            className="input"
             onChange={e => {
               setState(e.target.value);
             }}
           />
         </label>
-        <button type="submit">Enter</button>
-        <Ul>
+        <button className="button" type="submit">
+          Enter
+        </button>
+        <ul className="todo-list">
           {list.map((value, index) => {
             return (
-              <Li key={value.id}>
-                {index + 1}.
-                <input
-                  type="checkbox"
-                  defaultChecked={value.checked}
-                  onChange={() => setList(toggleElement(list, index))}
-                />
-                <span
-                  style={
-                    value.checked
-                      ? { textDecoration: "line-through" }
-                      : undefined
-                  }
-                >
-                  {value.text}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setList(deleteElements(list, index));
-                    }}
+              <li key={value.id} className="todo-list__element">
+                <div className="element-wrap">
+                  <span style={{ marginRight: "10px" }}> {index + 1})</span>
+                  <input
+                    type="checkbox"
+                    className="todo-checkbox"
+                    defaultChecked={value.checked}
+                    onChange={() => setList(toggleElement(list, index))}
+                  />
+                  <span
+                    style={
+                      value.checked
+                        ? { textDecoration: "line-through" }
+                        : undefined
+                    }
                   >
-                    Delete
-                  </button>
-                </span>
-              </Li>
+                    {value.text}
+                  </span>
+                </div>
+                <button
+                  className="todo-delete"
+                  type="button"
+                  onClick={() => {
+                    setList(deleteElements(list, index));
+                  }}
+                >
+                  Delete
+                </button>
+              </li>
             );
           })}
-        </Ul>
+        </ul>
       </form>
     </div>
   );

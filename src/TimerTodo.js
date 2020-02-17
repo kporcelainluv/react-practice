@@ -31,86 +31,105 @@ const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
   }, [isTimerActive]);
 
   return (
-    <div key={element.id}>
-      <input
-        type="checkbox"
-        defaultChecked={element.checked}
-        onClick={handleToggleCompletion}
-      />
-      <span
-        style={
-          ({ marginRight: "30px" },
-          element.checked ? { textDecoration: "line-through" } : undefined)
-        }
-      >
-        {index + 1}.{element.text}
-      </span>
-      <button
-        type="button"
-        onClick={() => {
-          setTimerActive(true);
-        }}
-      >
-        Start timer
-      </button>
-      <span> {seconds} </span>
-      <button
-        type="button"
-        onClick={() => {
-          setTimerActive(false);
-        }}
-      >
-        Stop timer
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          if (intervalId.current) {
-            clearInterval(intervalId.current);
+    <div key={element.id} className="todo-block">
+      <div className="todo-block__element">
+        <input
+          type="checkbox"
+          defaultChecked={element.checked}
+          onClick={handleToggleCompletion}
+        />
+        <span
+          style={
+            ({ marginRight: "30px" },
+            element.checked ? { textDecoration: "line-through" } : undefined)
           }
-          handleDelete();
-        }}
-      >
-        Delete task
-      </button>
+        >
+          {index + 1}) {element.text}
+        </span>
+      </div>
+      <div className="todo-block__buttons">
+        <span style={{ marginLeft: "10px" }}> {seconds} seconds </span>
+        <button
+          className="todo-button"
+          type="button"
+          onClick={() => {
+            setTimerActive(true);
+          }}
+        >
+          Start timer
+        </button>
+
+        <button
+          className="todo-button"
+          type="button"
+          onClick={() => {
+            setTimerActive(false);
+          }}
+        >
+          Stop timer
+        </button>
+        <button
+          className="todo-button"
+          type="button"
+          onClick={() => {
+            if (intervalId.current) {
+              clearInterval(intervalId.current);
+            }
+            handleDelete();
+          }}
+        >
+          Delete task
+        </button>
+      </div>
     </div>
   );
 };
 
 export const TodoTimer = props => {
-  const [inputText, updateText] = useState("");
+  const [inputText, updateText] = useState("Change button color to pink");
   const [state, updateState] = useState([
-    { id: 0, text: "ksusha", checked: false }
+    { id: 0, text: "Finish refactoring project", checked: false }
   ]);
 
   return (
-    <div>
+    <div className="container">
+      <h2 className="title">To-do list with counter</h2>
+      <ul style={{ margin: "auto" }}>
+        <li>look at Simple Todo List</li>
+        <li> every item has it's own timer</li>
+        <li> activate this timer with start button</li>
+        <li> deactivate this timer with stop button</li>
+      </ul>
       <form
+        style={{ margin: "50px auto" }}
         onSubmit={e => {
           e.preventDefault();
           updateText("");
         }}
       >
-        <input
-          value={inputText}
-          type="text"
-          onChange={e => {
-            updateText(e.target.value);
-          }}
-        />
-        <button
-          type="submit"
-          onClick={() => {
-            updateState([
-              ...state,
-              { id: Math.random(), text: inputText, checked: false }
-            ]);
-          }}
-        >
-          Send
-        </button>
-
-        <div style={{ margin: "20px auto" }}>
+        <div className="input-container">
+          <input
+            className="input"
+            value={inputText}
+            type="text"
+            onChange={e => {
+              updateText(e.target.value);
+            }}
+          />
+          <button
+            className="button"
+            type="submit"
+            onClick={() => {
+              updateState([
+                ...state,
+                { id: Math.random(), text: inputText, checked: false }
+              ]);
+            }}
+          >
+            Send
+          </button>
+        </div>
+        <div>
           {state.map((element, index) => {
             const handleToggleCompletion = () => {
               updateState(toggleChecked(state, index));
