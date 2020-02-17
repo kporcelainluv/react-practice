@@ -9,12 +9,11 @@ import {
   getDiffSecs
 } from "./utils";
 
-import { RadialChart } from "./LifeTimer/RadialChart";
-import "./css/style.css";
+import { RadialChart } from "./RadialChart";
 
 export const Age = () => {
   const [age, setAge] = useState("1996-05-04");
-  const [state, updateState] = useState(0);
+  const [timer, updateTimer] = useState(0);
 
   let [year, month, day] = age.split("-");
   month = (parseInt(month) - 1).toString();
@@ -26,10 +25,10 @@ export const Age = () => {
   const diffHours = getDiffHours({ year, month, day });
   const diffMinutes = getDiffMins({ year, month, day });
   const diffSeconds = getDiffSecs({ year, month, day });
-  // eslint-disable-next-line
+
   useEffect(() => {
     setInterval(() => {
-      updateState(x => x + 1);
+      updateTimer(x => x + 1);
     }, 1000);
   }, []);
 
@@ -54,25 +53,25 @@ export const Age = () => {
 
         <ul style={{ padding: "0" }}>
           <li className="age-element">
-            <div className="age-element__years"></div> Years: {diffYears}
+            <div className="age-element__years"> </div> Years: {diffYears}
           </li>
           <li className="age-element">
-            <div className="age-element__months"></div> Months: {diffMonths}
+            <div className="age-element__months"> </div> Months: {diffMonths}
           </li>
           <li className="age-element">
-            <div className="age-element__weeks"></div> Weeks: {diffWeeks}
+            <div className="age-element__weeks"> </div> Weeks: {diffWeeks}
           </li>
           <li className="age-element">
-            <div className="age-element__days"></div> Days: {diffDays}
+            <div className="age-element__days"> </div> Days: {diffDays}
           </li>
           <li className="age-element">
-            <div className="age-element__hours"></div> Hours: {diffHours}
+            <div className="age-element__hours"> </div> Hours: {diffHours}
           </li>
           <li className="age-element">
-            <div className="age-element__minutes"></div> Minutes: {diffMinutes}
+            <div className="age-element__minutes"> </div> Minutes: {diffMinutes}
           </li>
           <li className="age-element">
-            <div className="age-element__seconds"></div> Seconds: {diffSeconds}
+            <div className="age-element__seconds"> </div> Seconds: {diffSeconds}
           </li>
         </ul>
 

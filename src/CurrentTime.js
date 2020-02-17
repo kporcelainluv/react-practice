@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 export const LocalDate = () => {
-  const [state, setState] = useState(0);
+  const [timer, setTimer] = useState(0);
 
   useEffect(() => {
     setInterval(() => {
-      setState(x => x + 1);
+      setTimer(x => x + 1);
     }, 1000);
   }, []);
 

@@ -7,3 +7,13 @@ export const projectsList = [
   { path: "gify", name: "Gify" },
   { path: "age", name: "Age" }
 ];
+
+export const Pathname = {
+  COUNTER: "counter",
+  ADVANCED_COUNTER: "advanced_counter",
+  TIME: "current_time",
+  TODO_LIST: "todo_list",
+  TODO_LIST_TIMER: "todo_list_with_timer",
+  GIFY: "gify",
+  AGE: "age"
+};

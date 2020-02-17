@@ -1,7 +1,7 @@
 import React from "react";
 import { projectsList } from "./consts";
 
-export const List = ({ link }) => {
+export const ProjectsList = ({ link }) => {
   return (
     <div className="container">
       <h2 className="title">

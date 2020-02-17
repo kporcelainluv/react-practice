@@ -14,14 +14,14 @@ const decreaseNum = (list, index) => {
     ...list.slice(index + 1)
   ];
 };
-const addNewCounter = (list, index) => {
+const addNewCounter = list => {
   return [...list, { id: Math.random(), value: 0 }];
 };
 const deleteCounter = (list, index) => {
   return [...list.slice(0, index), ...list.slice(index + 1, list.length)];
 };
 export const AdvancedCounter = () => {
-  const [listOfCounters, updateList] = useState([
+  const [counters, updateCounters] = useState([
     {
       id: 0,
       value: 0
@@ -41,14 +41,14 @@ export const AdvancedCounter = () => {
             e.preventDefault();
           }}
         >
-          {listOfCounters.map((value, index) => {
+          {counters.map((value, index) => {
             return (
               <div key={value.id}>
                 <button
                   className="counter-button"
                   type="submit"
                   onClick={() => {
-                    updateList(deleteCounter(listOfCounters, index));
+                    updateCounters(deleteCounter(counters, index));
                   }}
                 >
                   Delete counter
@@ -57,7 +57,7 @@ export const AdvancedCounter = () => {
                   className="counter-button"
                   value="-"
                   onClick={() => {
-                    updateList(decreaseNum(listOfCounters, index));
+                    updateCounters(decreaseNum(counters, index));
                   }}
                 >
                   -
@@ -67,7 +67,7 @@ export const AdvancedCounter = () => {
                   className="counter-button"
                   value="+"
                   onClick={() => {
-                    updateList(increaseNum(listOfCounters, index));
+                    updateCounters(increaseNum(counters, index));
                   }}
                 >
                   {" "}
@@ -78,7 +78,7 @@ export const AdvancedCounter = () => {
                   className="counter-button"
                   type="button"
                   onClick={() => {
-                    updateList(addNewCounter(listOfCounters, index));
+                    updateCounters(addNewCounter(counters, index));
                   }}
                 >
                   Add new counter

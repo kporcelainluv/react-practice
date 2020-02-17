@@ -1,37 +1,34 @@
 import React from "react";
 import Counter from "./Counter";
+
 import { LocalDate } from "./CurrentTime";
 import { ToDo } from "./Todo";
 import { AdvancedCounter } from "./Counter2";
 import { TodoTimer } from "./TimerTodo";
 import { Gify } from "./Gify";
 import { Age } from "./Age";
-import { List } from "./List";
-
-const renderComponent = (link, path) => {
-  if (path === "") {
-    return <List link={link} />;
-  } else if (path === "counter") {
-    return <Counter />;
-  } else if (path === "advanced_counter") {
-    return <AdvancedCounter />;
-  } else if (path === "current_time") {
-    return <LocalDate />;
-  } else if (path === "todo_list") {
-    return <ToDo />;
-  } else if (path === "todo_list_with_timer") {
-    return <TodoTimer />;
-  } else if (path === "gify") {
-    return <Gify />;
-  } else if (path === "age") {
-    return <Age />;
-  }
-};
+import { ProjectsList } from "./ProjectsList";
+import { Pathname } from "./consts";
 
 export const App = () => {
-  const currentLink = window.location.href;
-  const currentPath = window.location.href.split("/")[3];
-  console.log({ currentPath });
+  const link = window.location.href;
+  const path = window.location.href.split("/")[3];
 
-  return <div>{renderComponent(currentLink, currentPath)}</div>;
+  if (path === "") {
+    return <ProjectsList link={link} />;
+  } else if (path === Pathname.COUNTER) {
+    return <Counter />;
+  } else if (path === Pathname.ADVANCED_COUNTER) {
+    return <AdvancedCounter />;
+  } else if (path === Pathname.TIME) {
+    return <LocalDate />;
+  } else if (path === Pathname.TODO_LIST) {
+    return <ToDo />;
+  } else if (path === Pathname.TODO_LIST_TIMER) {
+    return <TodoTimer />;
+  } else if (path === Pathname.GIFY) {
+    return <Gify />;
+  } else if (path === Pathname.AGE) {
+    return <Age />;
+  }
 };

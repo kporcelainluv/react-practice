@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 
 export const Gify = () => {
   const [data, setData] = useState([]);
-
   const [inputText, setInputText] = useState("scrubs");
   const [query, setQuery] = useState("scrubs");
+  const [gifs, setGifs] = useState([]);
 
-  const [listOfGifs, setListOfGifs] = useState([]);
-
+  console.log({ data, gifs, inputText, query });
   useEffect(() => {
     const fetchUsers = () => {
       const url = new URL("https://api.giphy.com/v1/gifs/search");
@@ -53,7 +52,7 @@ export const Gify = () => {
           className="button"
           onClick={() => {
             setQuery(inputText);
-            setListOfGifs([...listOfGifs, { key: inputText }]);
+            setGifs([...gifs, { key: inputText }]);
           }}
           type="submit"
         >
