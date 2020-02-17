@@ -20,6 +20,8 @@
 .env.production.local
 .idea
 yarn.lock
+.git
+.env
 
 npm-debug.log*
 yarn-debug.log*

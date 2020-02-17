@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
-const Button = styled.button`
-  color: palevioletred;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
-`;
 const increaseNum = (list, index) => {
   return [
     ...list.slice(0, index),
@@ -47,6 +38,7 @@ export const AdvancedCounter = () => {
           return (
             <div key={value.id}>
               <button
+                className="counter-button"
                 type="submit"
                 onClick={() => {
                   updateList(deleteCounter(listOfCounters, index));
@@ -54,16 +46,18 @@ export const AdvancedCounter = () => {
               >
                 Delete counter
               </button>
-              <Button
+              <button
+                className="counter-button"
                 value="-"
                 onClick={() => {
                   updateList(decreaseNum(listOfCounters, index));
                 }}
               >
                 -
-              </Button>
+              </button>
               <span> {value.value}</span>
-              <Button
+              <button
+                className="counter-button"
                 value="+"
                 onClick={() => {
                   updateList(increaseNum(listOfCounters, index));
@@ -71,9 +65,10 @@ export const AdvancedCounter = () => {
               >
                 {" "}
                 +{" "}
-              </Button>
+              </button>
 
               <button
+                className="counter-button"
                 type="button"
                 onClick={() => {
                   updateList(addNewCounter(listOfCounters, index));

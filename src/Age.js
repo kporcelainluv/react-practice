@@ -7,7 +7,7 @@ import {
   getDiffHours,
   getDiffMins,
   getDiffSecs
-} from "./LifeTimer/utils";
+} from "./utils";
 
 import { RadialChart } from "./LifeTimer/RadialChart";
 import "./css/style.css";

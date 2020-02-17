@@ -6,53 +6,37 @@ import { AdvancedCounter } from "./Counter2";
 import { TodoTimer } from "./TimerTodo";
 import { Gify } from "./Gify";
 import { Age } from "./Age";
-import styled from "styled-components";
 
-const Wrap = styled.div`
-  width: 900px;
-  margin: auto;
-  text-align: center;
-`;
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
-`;
-const Heading = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: #6d7b8d;
-`;
 
 export const App = () => {
   return (
-    <Wrap>
-      <Title></Title>
-      <Wrap>
-        <Heading>Try to update the number</Heading>
+    <div className="container">
+      {/*<h2 className="title"></h2>*/}
+      <div className="container">
+        <h2 className="subheading">Try to update the number</h2>
         <Counter />
-      </Wrap>
-      <Wrap>
-        <Heading>The current time is:</Heading>
+      </div>
+      <div className="container">
+        <h2 className="subheading">The current time is:</h2>
         <LocalDate />
-      </Wrap>
-      <Wrap>
-        <Heading>To be done:</Heading>
-        <ToDo></ToDo>
-      </Wrap>
-      <Wrap>
+      </div>
+      <div className="container">
+        <h2 className="subheading">To be done:</h2>
+        <ToDo />
+      </div>
+      <div className="container">
         <AdvancedCounter />
-      </Wrap>
-      <Wrap>
-        <Heading>Set timer for important tasks!</Heading>
-        <TodoTimer></TodoTimer>
-      </Wrap>
-      <Wrap>
+      </div>
+      <div className="container">
+        <h2 className="subheading">Set timer for important tasks!</h2>
+        <TodoTimer />
+      </div>
+      <div className="container">
         <Gify />
-      </Wrap>
-      <Wrap>
+      </div>
+      <div className="container">
         <Age />
-      </Wrap>
-    </Wrap>
+      </div>
+    </div>
   );
 };

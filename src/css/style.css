@@ -1,3 +1,30 @@
+.container {
+  width: 900px;
+  margin: auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+}
+
+.counter-button {
+  color: palevioletred;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+}
+
+.subheading {
+  font-size: 1.5em;
+  text-align: center;
+  color: #6d7b8d;
+}
+
 .radial-chart {
   transition: all 0.3s ease-in;
 }

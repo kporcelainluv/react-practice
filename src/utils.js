@@ -8,7 +8,6 @@ import {
   differenceInSeconds
 } from "date-fns";
 
-
 export const getDiffYears = birthday => {
   return differenceInYears(
     new Date(),

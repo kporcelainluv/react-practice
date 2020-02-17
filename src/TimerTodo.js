@@ -1,9 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
-
-const Wrap = styled.div`
-  margin: 20px auto;
-`;
 
 const deleteTask = (list, index) => {
   return [...list.slice(0, index), ...list.slice(index + 1, list.length)];
@@ -21,8 +16,6 @@ const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
   const [seconds, setSeconds] = useState(0);
   const [isTimerActive, setTimerActive] = useState(false);
   const intervalId = useRef(undefined);
-
-  console.log("render");
 
   useEffect(() => {
     if (isTimerActive) {
@@ -117,7 +110,7 @@ export const TodoTimer = props => {
           Send
         </button>
 
-        <Wrap>
+        <div style={{ margin: "20px auto" }}>
           {state.map((element, index) => {
             const handleToggleCompletion = () => {
               updateState(toggleChecked(state, index));
@@ -137,7 +130,7 @@ export const TodoTimer = props => {
               ></ToDo>
             );
           })}
-        </Wrap>
+        </div>
       </form>
     </div>
   );
