@@ -10,6 +10,7 @@ import {
 } from "./LifeTimer/utils";
 
 import { RadialChart } from "./LifeTimer/RadialChart";
+import "./css/style.css";
 
 export const Age = () => {
   const [age, setAge] = useState("1996-05-04");
