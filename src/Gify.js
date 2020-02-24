@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
+import nanoid from "nanoid";
 
 export const Gify = () => {
-  const [data, setData] = useState([]);
-  const [inputText, setInputText] = useState("scrubs");
-  const [query, setQuery] = useState("scrubs");
-  const [gifs, setGifs] = useState([]);
+  const [state, setState] = useState({
+    query: "scrubs",
+    gifs: [],
+    input: ""
+  });
 
-  console.log({ data, gifs, inputText, query });
   useEffect(() => {
-    const fetchUsers = () => {
+    (() => {
       const url = new URL("https://api.giphy.com/v1/gifs/search");
+
       const params = {
         api_key: "GRTDQB888zEjwAMOjmf1QeV8Fn51IulA",
-        q: query,
+        q: state.query,
         limit: 1,
         contentType: "application/json",
         dataType: "json"
@@ -24,11 +26,13 @@ export const Gify = () => {
         .then(response => response.json())
         .then(response => {
           const images = response.data;
-          setData(allImages => [...images, ...allImages]);
+          setState(s => {
+            return { ...s, gifs: [...images, ...s.gifs] };
+          });
         });
-    };
-    fetchUsers();
-  }, [query]);
+    })();
+  }, [state.query]);
+
   return (
     <div className="container">
       <form
@@ -42,17 +46,21 @@ export const Gify = () => {
           <input
             className="input"
             type="text"
-            value={inputText}
+            value={state.input}
             onChange={e => {
-              setInputText(e.target.value);
+              const currentInput = e.target.value;
+              setState(s => {
+                return { ...s, input: currentInput };
+              });
             }}
           />
         </label>
         <button
           className="button"
           onClick={() => {
-            setQuery(inputText);
-            setGifs([...gifs, { key: inputText }]);
+            setState(s => {
+              return { ...s, query: state.input };
+            });
           }}
           type="submit"
         >
@@ -60,11 +68,9 @@ export const Gify = () => {
         </button>
       </form>
 
-      <p className="subheading">Check it out!</p>
-
-      {data.map(obj => {
+      {state.gifs.map(obj => {
         return (
-          <div key={obj.id} style={{ margin: "auto" }}>
+          <div key={nanoid()} style={{ margin: "auto" }}>
             <img
               src={obj.images.fixed_height.url}
               alt={obj.title}
