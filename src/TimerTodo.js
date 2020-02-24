@@ -3,7 +3,7 @@ import nanoid from "nanoid";
 
 import { markTask, deleteTask } from "./utils";
 
-const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
+const Todo = ({ element, index, list, updateList }) => {
   const [state, setState] = useState({
     seconds: 0,
     isTimerActive: false
@@ -30,7 +30,9 @@ const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
         <input
           type="checkbox"
           defaultChecked={element.checked}
-          onClick={handleToggleCompletion}
+          onClick={() => {
+            return updateList(markTask(list, index));
+          }}
         />
         <span
           style={
@@ -73,7 +75,7 @@ const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
             if (intervalId.current) {
               clearInterval(intervalId.current);
             }
-            handleDelete();
+            return updateList(deleteTask(list, index));
           }}
         >
           Delete task
@@ -89,11 +91,17 @@ export const TodoTimer = () => {
     list: [{ id: 0, text: "Finish refactoring project", checked: false }]
   });
 
+  const updateList = updatedList => {
+    setState(s => {
+      return { ...s, list: updatedList };
+    });
+  };
+
   return (
     <div className="container">
       <h2 className="title">To-do list with counter</h2>
       <ul style={{ margin: "auto" }}>
-        <li>look at Simple Todo List</li>
+        <li>look at Simple To-do List</li>
         <li> every item has it's own timer</li>
         <li> activate this timer with start button</li>
         <li> deactivate this timer with stop button</li>
@@ -138,27 +146,14 @@ export const TodoTimer = () => {
           </button>
         </div>
         <div>
-          // TODO: refactor funcs
-          {state.map((element, index) => {
-            const handleToggleCompletion = () => {
-              setState(s => {
-                return { ...s, list: markTask(s.list, index) };
-              });
-            };
-
-            const handleDelete = () => {
-              setState(s => {
-                return { ...s, list: deleteTask(s.list, index) };
-              });
-            };
-
+          {state.list.map((element, index) => {
             return (
-              <ToDo
+              <Todo
                 key={element.id}
                 element={element}
                 index={index}
-                handleDelete={handleDelete}
-                handleToggleCompletion={handleToggleCompletion}
+                list={state.list}
+                updateList={updateList}
               />
             );
           })}

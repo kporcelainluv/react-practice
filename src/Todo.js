@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import nanoid from "nanoid";
-import "./css/style.css";
 
-const toggleElement = (elements, index) => {
-  return [
-    ...elements.slice(elements, index),
-    { ...elements[index], checked: !elements[index].checked },
-    ...elements.slice(index + 1)
-  ];
-};
-
-const deleteElements = (elements, index) => {
-  return [...elements.slice(elements, index), ...elements.slice(index + 1)];
-};
+import { markTask, deleteTask } from "./utils";
 
 export const ToDo = () => {
-  const [state, setState] = useState("Make a to-do list in React.js");
-  const [list, setList] = useState([]);
+  const [state, setState] = useState({
+    input: "cook dinner",
+    list: [
+      { id: nanoid(), text: "Make a to-do list in React.js", checked: true }
+    ]
+  });
 
   return (
     <div className="container">
@@ -30,18 +23,31 @@ export const ToDo = () => {
         style={{ margin: "auto" }}
         onSubmit={e => {
           e.preventDefault();
-          setList([...list, { id: nanoid(), text: state, checked: false }]);
-          setState("");
+          setState(s => {
+            return {
+              list: [
+                ...s.list,
+                { id: nanoid(), text: s.input, checked: false }
+              ],
+              input: ""
+            };
+          });
         }}
       >
         <label htmlFor="todo">
           <input
             type="text"
             id="todo"
-            value={state}
+            value={state.input}
             className="input"
             onChange={e => {
-              setState(e.target.value);
+              const currentInput = e.target.value;
+              setState(s => {
+                return {
+                  ...s,
+                  input: currentInput
+                };
+              });
             }}
           />
         </label>
@@ -49,32 +55,38 @@ export const ToDo = () => {
           Enter
         </button>
         <ul className="todo-list">
-          {list.map((value, index) => {
+          {state.list.map((element, index) => {
             return (
-              <li key={value.id} className="todo-list__element">
+              <li key={element.id} className="todo-list__element">
                 <div className="element-wrap">
                   <span style={{ marginRight: "10px" }}> {index + 1})</span>
                   <input
                     type="checkbox"
                     className="todo-checkbox"
-                    defaultChecked={value.checked}
-                    onChange={() => setList(toggleElement(list, index))}
+                    defaultChecked={element.checked}
+                    onChange={() =>
+                      setState(s => {
+                        return { ...s, list: markTask(s.list, index) };
+                      })
+                    }
                   />
                   <span
                     style={
-                      value.checked
+                      element.checked
                         ? { textDecoration: "line-through" }
                         : undefined
                     }
                   >
-                    {value.text}
+                    {element.text}
                   </span>
                 </div>
                 <button
                   className="todo-delete"
                   type="button"
                   onClick={() => {
-                    setList(deleteElements(list, index));
+                    setState(s => {
+                      return { ...s, list: deleteTask(s.list, index) };
+                    });
                   }}
                 >
                   Delete
