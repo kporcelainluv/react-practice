@@ -10,7 +10,7 @@
     "igniteui-react-core": "^16.6.12",
     "moment": "^2.24.0",
     "moment-precise-range": "^0.2.0",
-    "nanoid": "^2.0.3",
+    "nanoid": "2.1.11",
     "react": "^16.8.6",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
