@@ -1,37 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
+import nanoid from "nanoid";
 
-const deleteTask = (list, index) => {
-  return [...list.slice(0, index), ...list.slice(index + 1, list.length)];
-};
-
-const toggleChecked = (list, index) => {
-  return [
-    ...list.slice(0, index),
-    { ...list[index], checked: !list[index].checked },
-    ...list.slice(index + 1, list.length)
-  ];
-};
+import { markTask, deleteTask } from "./utils";
 
 const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
-  const [seconds, setSeconds] = useState(0);
-  const [isTimerActive, setTimerActive] = useState(false);
+  const [state, setState] = useState({
+    seconds: 0,
+    isTimerActive: false
+  });
+
   const intervalId = useRef(undefined);
 
   useEffect(() => {
-    if (isTimerActive) {
+    if (state.isTimerActive) {
       intervalId.current = setInterval(() => {
-        setSeconds(x => x + 1);
+        setState(s => {
+          return { ...s, seconds: s.seconds + 1 };
+        });
       }, 1000);
-      console.log("timer should be active");
     } else {
       clearInterval(intervalId.current);
       intervalId.current = undefined;
-      console.log("timer should NOT be active");
     }
-  }, [isTimerActive]);
+  }, [state.isTimerActive]);
 
   return (
-    <div key={element.id} className="todo-block">
+    <section key={element.id} className="todo-block">
       <div className="todo-block__element">
         <input
           type="checkbox"
@@ -48,12 +42,14 @@ const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
         </span>
       </div>
       <div className="todo-block__buttons">
-        <span style={{ marginLeft: "10px" }}> {seconds} seconds </span>
+        <span style={{ marginLeft: "10px" }}> {state.seconds} seconds </span>
         <button
           className="todo-button"
           type="button"
           onClick={() => {
-            setTimerActive(true);
+            setState(s => {
+              return { ...s, isTimerActive: true };
+            });
           }}
         >
           Start timer
@@ -63,7 +59,9 @@ const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
           className="todo-button"
           type="button"
           onClick={() => {
-            setTimerActive(false);
+            setState(s => {
+              return { ...s, isTimerActive: false };
+            });
           }}
         >
           Stop timer
@@ -81,15 +79,15 @@ const ToDo = ({ element, index, handleToggleCompletion, handleDelete }) => {
           Delete task
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 
-export const TodoTimer = props => {
-  const [inputText, updateText] = useState("Change button color to pink");
-  const [state, updateState] = useState([
-    { id: 0, text: "Finish refactoring project", checked: false }
-  ]);
+export const TodoTimer = () => {
+  const [state, setState] = useState({
+    input: "Change button color to pink",
+    list: [{ id: 0, text: "Finish refactoring project", checked: false }]
+  });
 
   return (
     <div className="container">
@@ -104,39 +102,54 @@ export const TodoTimer = props => {
         style={{ margin: "50px auto" }}
         onSubmit={e => {
           e.preventDefault();
-          updateText("");
+          setState(s => {
+            return { ...s, input: "" };
+          });
         }}
       >
         <div className="input-container">
           <input
             className="input"
-            value={inputText}
+            value={state.input}
             type="text"
             onChange={e => {
-              updateText(e.target.value);
+              const currentInput = e.target.value;
+              setState(s => {
+                return { ...s, input: currentInput };
+              });
             }}
           />
           <button
             className="button"
             type="submit"
             onClick={() => {
-              updateState([
-                ...state,
-                { id: Math.random(), text: inputText, checked: false }
-              ]);
+              setState(s => {
+                return {
+                  ...s,
+                  list: [
+                    ...s.list,
+                    { id: nanoid(), text: s.input, checked: false }
+                  ]
+                };
+              });
             }}
           >
             Send
           </button>
         </div>
         <div>
+          // TODO: refactor funcs
           {state.map((element, index) => {
             const handleToggleCompletion = () => {
-              updateState(toggleChecked(state, index));
+              setState(s => {
+                return { ...s, list: markTask(s.list, index) };
+              });
             };
 
             const handleDelete = () => {
-              updateState(deleteTask(state, index));
+              setState(s => {
+                return { ...s, list: deleteTask(s.list, index) };
+              });
             };
 
             return (
@@ -146,7 +159,7 @@ export const TodoTimer = props => {
                 index={index}
                 handleDelete={handleDelete}
                 handleToggleCompletion={handleToggleCompletion}
-              ></ToDo>
+              />
             );
           })}
         </div>
