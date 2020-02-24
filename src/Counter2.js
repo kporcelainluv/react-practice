@@ -14,7 +14,7 @@ const decreaseNum = (list, index) => {
     ...list.slice(index + 1)
   ];
 };
-const addNewCounter = list => {
+const addCounter = list => {
   return [...list, { id: Math.random(), value: 0 }];
 };
 const deleteCounter = (list, index) => {
@@ -70,15 +70,14 @@ export const AdvancedCounter = () => {
                     updateCounters(increaseNum(counters, index));
                   }}
                 >
-                  {" "}
-                  +{" "}
+                  +
                 </button>
 
                 <button
                   className="counter-button"
                   type="button"
                   onClick={() => {
-                    updateCounters(addNewCounter(counters, index));
+                    updateCounters(addCounter(counters, index));
                   }}
                 >
                   Add new counter
