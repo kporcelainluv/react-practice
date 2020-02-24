@@ -9,6 +9,7 @@ import { Gify } from "./Gify";
 import { Age } from "./Age";
 import { ProjectsList } from "./ProjectsList";
 import { Pathname } from "./consts";
+import "./css/style.css";
 
 export const App = () => {
   const link = window.location.href;
