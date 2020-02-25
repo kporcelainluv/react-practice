@@ -1,10 +1,12 @@
+html {
+  font-family: "Open Sans", sans-serif;
+}
 .container {
   width: 900px;
   margin: 50px auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-family: "Open Sans", sans-serif;
   color: #181919;
   line-height: 35px;
 }
@@ -35,27 +37,39 @@
   cursor: pointer;
 }
 
-.counter-button {
-  color: #181919;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid #6a6b6c;
-  border-radius: 3px;
-}
-
 .button {
-  background-color: #181919;
-  color: white;
-  padding: 13px 20px;
-  margin: 8px 20px;
-  border: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 0.5rem 1rem;
+  border-width: 1px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  width: 90px;
+  font-size: 20px;
+  margin: 10px;
+  line-height: 16px;
+  background-color: #fff;
 }
 .button:hover {
-  background-color: #6a6b6c;
+  background-color: #f7fafc;
 }
+.advanced-counter__buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.advanced-counter__buttons-container {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 750px) {
+  .advanced-counter__buttons {
+    display: flex;
+    flex-direction: row;
+  }
+  .advanced-counter__buttons-container {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
 .input {
   color: #6a6b6c;
   width: 250px;
@@ -132,6 +146,27 @@
 .input-container {
   margin: auto;
 }
+
+.counter-container {
+  margin: 50px auto;
+}
+@media (min-width: 750px) {
+  .counter-number {
+    padding-top: 13px;
+  }
+}
+.counter-number {
+  margin: 0 50px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.advanced-counter__list {
+  padding-left: 20%;
+  font-size: 20px;
+  margin: auto;
+}
+
 .age-element {
   margin: 5px;
   display: flex;
