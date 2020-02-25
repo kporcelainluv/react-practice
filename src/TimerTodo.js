@@ -1,9 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import nanoid from "nanoid";
 
-import { markTask, deleteTask } from "./utils";
+const markTask = (tasks, id) => {
+  return tasks.map(task => {
+    if (task.id === id) {
+      task.checked = !task.checked;
+    }
+    return task;
+  });
+};
 
-const Todo = ({ element, index, list, updateList }) => {
+const deleteTask = (tasks, id) => {
+  return tasks.filter(task => task.id !== id);
+};
+
+const Task = ({ element, index, list, updateList }) => {
   const [state, setState] = useState({
     seconds: 0,
     isTimerActive: false
@@ -36,15 +47,14 @@ const Todo = ({ element, index, list, updateList }) => {
         />
         <span
           style={
-            ({ marginRight: "30px" },
-            element.checked ? { textDecoration: "line-through" } : undefined)
+            element.checked ? { textDecoration: "line-through" } : undefined
           }
         >
-          {index + 1}) {element.text}
+          {index + 1}. {element.text}
         </span>
       </div>
       <div className="todo-block__buttons">
-        <span style={{ marginLeft: "10px" }}> {state.seconds} seconds </span>
+        <span> {state.seconds} seconds </span>
         <button
           className="todo-button"
           type="button"
@@ -88,71 +98,62 @@ const Todo = ({ element, index, list, updateList }) => {
 export const TodoTimer = () => {
   const [state, setState] = useState({
     input: "Change button color to pink",
-    list: [{ id: 0, text: "Finish refactoring project", checked: false }]
+    tasks: [{ id: 0, text: "Finish refactoring project", checked: false }]
   });
 
   const updateList = updatedList => {
     setState(s => {
-      return { ...s, list: updatedList };
+      return { ...s, tasks: updatedList };
     });
   };
 
+  const updateInput = input => {
+    setState(s => ({ ...s, input: input }));
+  };
+
+  const addTask = () => {
+    setState(s => ({
+      ...s,
+      tasks: [...s.tasks, { id: nanoid(), text: s.input, checked: false }]
+    }));
+  };
   return (
     <div className="container">
       <h2 className="title">To-do list with counter</h2>
-      <ul style={{ margin: "auto" }}>
+      <ul className="container--centered">
         <li>look at Simple To-do List</li>
         <li> every item has it's own timer</li>
         <li> activate this timer with start button</li>
         <li> deactivate this timer with stop button</li>
       </ul>
       <form
-        style={{ margin: "50px auto" }}
+        className="counter-container"
         onSubmit={e => {
           e.preventDefault();
-          setState(s => {
-            return { ...s, input: "" };
-          });
+          addTask();
         }}
       >
         <div className="input-container">
           <input
             className="input"
-            value={state.input}
+            placeholder={state.input}
             type="text"
             onChange={e => {
-              const currentInput = e.target.value;
-              setState(s => {
-                return { ...s, input: currentInput };
-              });
+              updateInput(e.target.value);
             }}
           />
-          <button
-            className="button"
-            type="submit"
-            onClick={() => {
-              setState(s => {
-                return {
-                  ...s,
-                  list: [
-                    ...s.list,
-                    { id: nanoid(), text: s.input, checked: false }
-                  ]
-                };
-              });
-            }}
-          >
+          <button className="button" type="submit">
             Send
           </button>
         </div>
         <div>
-          {state.list.map((element, index) => {
+          {state.tasks.map((element, index) => {
             return (
-              <Todo
+              <Task
                 key={element.id}
                 element={element}
                 index={index}
-                list={state.list}
+                tasks={state.tasks}
                 updateList={updateList}
               />
             );

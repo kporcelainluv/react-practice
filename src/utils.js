@@ -109,15 +109,3 @@ export const getDiffSecs = birthday => {
   );
   return difference;
 };
-
-export const markTask = (elements, index) => {
-  return [
-    ...elements.slice(elements, index),
-    { ...elements[index], checked: !elements[index].checked },
-    ...elements.slice(index + 1)
-  ];
-};
-
-export const deleteTask = (elements, index) => {
-  return [...elements.slice(elements, index), ...elements.slice(index + 1)];
-};

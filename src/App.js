@@ -2,7 +2,7 @@ import React from "react";
 import Counter from "./Counter";
 
 import { LocalDate } from "./CurrentTime";
-import { ToDo } from "./Todo";
+import { TodoList } from "./TodoList";
 import { AdvancedCounter } from "./Counter2";
 import { TodoTimer } from "./TimerTodo";
 import { Gify } from "./Gify";
@@ -24,7 +24,7 @@ export const App = () => {
   } else if (path === Pathname.TIME) {
     return <LocalDate />;
   } else if (path === Pathname.TODO_LIST) {
-    return <ToDo />;
+    return <TodoList />;
   } else if (path === Pathname.TODO_LIST_TIMER) {
     return <TodoTimer />;
   } else if (path === Pathname.GIFY) {
