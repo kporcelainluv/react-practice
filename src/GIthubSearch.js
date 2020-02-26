@@ -6,11 +6,13 @@ import { Error } from "./Error";
 export const GithubSearch = () => {
   const [state, setState] = useState({
     input: "preact",
-    query: undefined,
+    query: "",
     list: [],
     isLoading: false,
     error: false
   });
+
+  console.log(state.query);
 
   const updateInput = input => {
     return setState(s => {
