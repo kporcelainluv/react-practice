@@ -14,7 +14,7 @@ const deleteTask = (tasks, id) => {
   return tasks.filter(task => task.id !== id);
 };
 
-// TODO: can I actually pass setState as props
+// TODO: can I actually pass setState as props - no
 const Tasks = ({ id, checked, text, index, setState }) => {
   return (
     <li className="todo-list__element">
@@ -24,6 +24,7 @@ const Tasks = ({ id, checked, text, index, setState }) => {
           type="checkbox"
           className="todo-checkbox"
           defaultChecked={checked}
+          //useReducer
           onChange={() =>
             setState(s => ({ ...s, tasks: markTask(s.tasks, id) }))
           }
@@ -88,6 +89,7 @@ export const TodoList = () => {
           <input
             type="text"
             placeholder={state.input}
+            value={state.input}
             className="input"
             onChange={e => {
               updateCurrentInput(e.target.value);

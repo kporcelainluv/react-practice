@@ -14,6 +14,7 @@ const Form = ({ state, updateQuery, updateInput }) => {
           className="input"
           type="text"
           placeholder={state.input}
+          value={state.input}
           onChange={e => {
             updateInput(e.target.value);
           }}

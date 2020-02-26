@@ -136,6 +136,7 @@ export const TodoTimer = () => {
           <input
             className="input"
             placeholder={state.input}
+            value={state.input}
             type="text"
             onChange={e => {
               updateInput(e.target.value);

@@ -35,7 +35,7 @@ export const App = () => {
     return <Age />;
   } else if (path === Pathname.RESET_TIMER) {
     return <ResetTimer />;
-  } else if (path === Pathname.GITHUB_SEARCH) {
+  } else if (path.includes(Pathname.GITHUB_SEARCH)) {
     return <GithubSearch />;
   }
 };

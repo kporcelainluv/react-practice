@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
+
 import { Loader } from "./Loader";
 import "./css/loader.css";
 import { Error } from "./Error";
 
+const getQuery = () => {
+  const sp = new URLSearchParams(window.location.search);
+  return sp.get("query");
+};
+
+const getReposList = state => {
+  const url = `https://api.github.com/search/repositories?q=${state.query}&sort=stars&order=desc`;
+  return fetch(url).then(res => res.json());
+};
+
 export const GithubSearch = () => {
+  const query = getQuery() || "";
+
   const [state, setState] = useState({
-    input: "preact",
-    query: "",
+    input: query,
+    query: query,
     list: [],
     isLoading: false,
     error: false
   });
-
-  console.log(state.query);
 
   const updateInput = input => {
     return setState(s => {
@@ -26,19 +37,20 @@ export const GithubSearch = () => {
     });
   };
 
-  const getReposList = state => {
-    const url = `https://api.github.com/search/repositories?q=${state.query}&sort=stars&order=desc`;
-    setState(s => ({ ...s, isLoading: true }));
-    return fetch(url).then(res => res.json());
-  };
-
   useEffect(() => {
     if (state.query) {
+      setState(s => ({ ...s, isLoading: true }));
       getReposList(state)
         .then(repos =>
           setState(s => ({ ...s, list: repos.items, isLoading: false }))
         )
-        .catch(e => setState(s => ({ ...s, error: true, isLoading: false })));
+        .catch(() => setState(s => ({ ...s, error: true, isLoading: false })));
+
+      window.history.pushState(
+        undefined,
+        undefined,
+        "/github-search?query=" + state.query
+      );
     }
   }, [state.query]);
 
@@ -57,6 +69,7 @@ export const GithubSearch = () => {
             className="input"
             type="text"
             placeholder={"preact"}
+            value={state.input}
             onChange={e => {
               updateInput(e.target.value);
             }}
