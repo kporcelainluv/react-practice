@@ -11,6 +11,7 @@ import { ProjectsList } from "./ProjectsList";
 import { ResetTimer } from "./ResetTimer";
 import { Pathname } from "./consts";
 import "./css/style.css";
+import { GithubSearch } from "./GIthubSearch";
 
 export const App = () => {
   const link = window.location.href;
@@ -34,5 +35,7 @@ export const App = () => {
     return <Age />;
   } else if (path === Pathname.RESET_TIMER) {
     return <ResetTimer />;
+  } else if (path === Pathname.GITHUB_SEARCH) {
+    return <GithubSearch />;
   }
 };

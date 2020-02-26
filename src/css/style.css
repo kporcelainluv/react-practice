@@ -208,6 +208,34 @@ html {
   line-height: 1.625;
 }
 
+/*github search*/
+
+.results__container {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  text-align: left;
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+}
+.results__paragraph {
+  margin: 0 5px;
+}
+.results__paragraph--underlined {
+  text-decoration: #181919 underline;
+}
+/*counter*/
+.counter-container {
+  margin: 50px auto;
+}
+
+.counter-number {
+  margin: 0 50px;
+  font-size: 20px;
+  text-align: center;
+}
+
 @media (min-width: 750px) {
   .container {
     width: 700px;
@@ -224,17 +252,6 @@ html {
   .todo-list__container {
     max-width: 500px;
   }
-}
-
-/*counter*/
-.counter-container {
-  margin: 50px auto;
-}
-
-.counter-number {
-  margin: 0 50px;
-  font-size: 20px;
-  text-align: center;
 }
 
 /*age*/
