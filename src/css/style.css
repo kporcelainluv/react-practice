@@ -72,8 +72,11 @@ html {
 .advanced-counter__container {
   margin: 50px auto;
 }
-
 .container--centered {
+  margin: auto;
+}
+
+.todo-block {
   margin: auto;
 }
 .input-container {

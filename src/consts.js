@@ -5,7 +5,8 @@ export const projectsList = [
   { path: "todo_list", name: "To-do list" },
   { path: "todo_list_with_timer", name: "Advanced to-do list" },
   { path: "gify", name: "Gify" },
-  { path: "age", name: "Age" }
+  { path: "age", name: "Age" },
+  { path: "reset-timer", name: "Resetting Timer" }
 ];
 
 export const Pathname = {
@@ -15,5 +16,6 @@ export const Pathname = {
   TODO_LIST: "todo_list",
   TODO_LIST_TIMER: "todo_list_with_timer",
   GIFY: "gify",
-  AGE: "age"
+  AGE: "age",
+  RESET_TIMER: "reset-timer"
 };

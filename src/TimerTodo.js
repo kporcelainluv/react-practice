@@ -14,7 +14,7 @@ const deleteTask = (tasks, id) => {
   return tasks.filter(task => task.id !== id);
 };
 
-const Task = ({ element, index, list, updateList }) => {
+const Task = ({ element, index, tasks, updateTasks }) => {
   const [state, setState] = useState({
     seconds: 0,
     isTimerActive: false
@@ -25,14 +25,13 @@ const Task = ({ element, index, list, updateList }) => {
   useEffect(() => {
     if (state.isTimerActive) {
       intervalId.current = setInterval(() => {
-        setState(s => {
-          return { ...s, seconds: s.seconds + 1 };
-        });
+        setState(s => ({ ...s, seconds: s.seconds + 1 }));
       }, 1000);
-    } else {
+    }
+    return () => {
       clearInterval(intervalId.current);
       intervalId.current = undefined;
-    }
+    };
   }, [state.isTimerActive]);
 
   return (
@@ -42,7 +41,7 @@ const Task = ({ element, index, list, updateList }) => {
           type="checkbox"
           defaultChecked={element.checked}
           onClick={() => {
-            return updateList(markTask(list, index));
+            return updateTasks(markTask(tasks, element.id));
           }}
         />
         <span
@@ -59,9 +58,7 @@ const Task = ({ element, index, list, updateList }) => {
           className="todo-button"
           type="button"
           onClick={() => {
-            setState(s => {
-              return { ...s, isTimerActive: true };
-            });
+            setState(s => ({ ...s, isTimerActive: true }));
           }}
         >
           Start timer
@@ -71,9 +68,7 @@ const Task = ({ element, index, list, updateList }) => {
           className="todo-button"
           type="button"
           onClick={() => {
-            setState(s => {
-              return { ...s, isTimerActive: false };
-            });
+            setState(s => ({ ...s, isTimerActive: false }));
           }}
         >
           Stop timer
@@ -85,7 +80,7 @@ const Task = ({ element, index, list, updateList }) => {
             if (intervalId.current) {
               clearInterval(intervalId.current);
             }
-            return updateList(deleteTask(list, index));
+            return updateTasks(deleteTask(tasks, element.id));
           }}
         >
           Delete task
@@ -101,7 +96,7 @@ export const TodoTimer = () => {
     tasks: [{ id: 0, text: "Finish refactoring project", checked: false }]
   });
 
-  const updateList = updatedList => {
+  const updateTasks = updatedList => {
     setState(s => {
       return { ...s, tasks: updatedList };
     });
@@ -117,6 +112,7 @@ export const TodoTimer = () => {
       tasks: [...s.tasks, { id: nanoid(), text: s.input, checked: false }]
     }));
   };
+
   return (
     <div className="container">
       <h2 className="title">To-do list with counter</h2>
@@ -154,7 +150,7 @@ export const TodoTimer = () => {
                 element={element}
                 index={index}
                 tasks={state.tasks}
-                updateList={updateList}
+                updateTasks={updateTasks}
               />
             );
           })}

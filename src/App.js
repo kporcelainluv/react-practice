@@ -8,7 +8,7 @@ import { TodoTimer } from "./TimerTodo";
 import { Gify } from "./Gify";
 import { Age } from "./Age";
 import { ProjectsList } from "./ProjectsList";
-import { ResetTimer } from "./UpdatimgTodo";
+import { ResetTimer } from "./ResetTimer";
 import { Pathname } from "./consts";
 import "./css/style.css";
 
@@ -32,7 +32,7 @@ export const App = () => {
     return <Gify />;
   } else if (path === Pathname.AGE) {
     return <Age />;
-  } else if (path === Pathname.UPDATING_TODO) {
+  } else if (path === Pathname.RESET_TIMER) {
     return <ResetTimer />;
   }
 };
