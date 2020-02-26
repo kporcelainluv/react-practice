@@ -17,7 +17,7 @@ const deleteTask = (tasks, id) => {
 // TODO: can I actually pass setState as props
 const Tasks = ({ id, checked, text, index, setState }) => {
   return (
-    <li key={id} className="todo-list__element">
+    <li className="todo-list__element">
       <div className="task-wrap">
         <span className="task__element"> {index + 1}.</span>
         <input
@@ -78,7 +78,7 @@ export const TodoList = () => {
         <li> mark items as "done</li>
       </ul>
       <form
-        className="container--centered"
+        className="todo-list__container"
         onSubmit={e => {
           e.preventDefault();
           onFormSubmit();
@@ -103,6 +103,7 @@ export const TodoList = () => {
           {state.tasks.map((task, index) => {
             return (
               <Tasks
+                key={task.id}
                 text={task.text}
                 index={index}
                 checked={task.checked}
