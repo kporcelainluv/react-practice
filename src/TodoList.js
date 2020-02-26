@@ -72,7 +72,7 @@ export const TodoList = () => {
   return (
     <div className="container">
       <h2 className="title">Simple to-do list</h2>
-      <ul className="todo-list__list">
+      <ul className="todo-list__list todo-list__list--shortened">
         <li>add item from input to the list of todos</li>
         <li>delete item from that list</li>
         <li> mark items as "done</li>

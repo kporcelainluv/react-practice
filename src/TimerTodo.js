@@ -37,23 +37,26 @@ const Task = ({ element, index, tasks, updateTasks }) => {
   return (
     <section key={element.id} className="todo-block">
       <div className="todo-block__element">
-        <input
-          type="checkbox"
-          defaultChecked={element.checked}
-          onClick={() => {
-            return updateTasks(markTask(tasks, element.id));
-          }}
-        />
-        <span
-          style={
-            element.checked ? { textDecoration: "line-through" } : undefined
-          }
-        >
-          {index + 1}. {element.text}
-        </span>
+        <label htmlFor="" className="todo-block__text">
+          <input
+            type="checkbox"
+            defaultChecked={element.checked}
+            onClick={() => {
+              return updateTasks(markTask(tasks, element.id));
+            }}
+          />
+          <span
+            style={
+              element.checked ? { textDecoration: "line-through" } : undefined
+            }
+          >
+            {index + 1}. {element.text}
+          </span>
+        </label>
+
+        <span> {state.seconds} seconds </span>
       </div>
       <div className="todo-block__buttons">
-        <span> {state.seconds} seconds </span>
         <button
           className="todo-button"
           type="button"
@@ -123,7 +126,7 @@ export const TodoTimer = () => {
         <li> deactivate this timer with stop button</li>
       </ul>
       <form
-        className="counter-container"
+        className="todo-list__container"
         onSubmit={e => {
           e.preventDefault();
           addTask();
