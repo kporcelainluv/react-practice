@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import nanoid from "nanoid";
 
-const markTask = (tasks, id) => {
-  return tasks.map(task => {
-    if (task.id === id) {
-      task.checked = !task.checked;
-    }
-    return task;
-  });
+const reducer = (state, action) => {
+  const tasks = state.tasks;
+  if (action.type === "delete") {
+    const { id } = action.payload;
+    return { ...state, tasks: tasks.filter(task => task.id !== id) };
+  } else if (action.type === "mark") {
+    const { id } = action.payload;
+    const updatedTasks = tasks.map(task => {
+      if (task.id === id) {
+        task.checked = !task.checked;
+      }
+      return task;
+    });
+    return { ...state, tasks: updatedTasks };
+  } else if (action.type === "add") {
+    return {
+      ...state,
+      tasks: [...tasks, { id: nanoid(), text: state.input, checked: false }]
+    };
+  } else if (action.type === "update") {
+    const { input } = action.payload;
+    return { ...state, input: input };
+  }
 };
 
-const deleteTask = (tasks, id) => {
-  return tasks.filter(task => task.id !== id);
-};
-
-// TODO: can I actually pass setState as props - no
-const Tasks = ({ id, checked, text, index, setState }) => {
+const Tasks = ({ id, index, checked, text, deleteTask, markTask }) => {
   return (
     <li className="todo-list__element">
       <div className="task-wrap">
@@ -24,10 +35,7 @@ const Tasks = ({ id, checked, text, index, setState }) => {
           type="checkbox"
           className="todo-checkbox"
           defaultChecked={checked}
-          //useReducer
-          onChange={() =>
-            setState(s => ({ ...s, tasks: markTask(s.tasks, id) }))
-          }
+          onChange={() => markTask(id)}
         />
         <span
           className="task__element"
@@ -39,9 +47,7 @@ const Tasks = ({ id, checked, text, index, setState }) => {
       <button
         className="black-button"
         type="button"
-        onClick={() => {
-          setState(s => ({ ...s, tasks: deleteTask(s.tasks, id) }));
-        }}
+        onClick={() => deleteTask(id)}
       >
         Delete
       </button>
@@ -49,27 +55,21 @@ const Tasks = ({ id, checked, text, index, setState }) => {
   );
 };
 
+const initialValue = {
+  input: "change button color",
+  tasks: [
+    { id: nanoid(), text: "Make a to-do list in React.js", checked: true }
+  ]
+};
+
 export const TodoList = () => {
-  const [state, setState] = useState({
-    input: "change button color",
-    tasks: [
-      { id: nanoid(), text: "Make a to-do list in React.js", checked: true }
-    ]
-  });
+  const [state, dispatch] = useReducer(reducer, initialValue);
 
-  const onFormSubmit = () => {
-    setState(s => ({
-      tasks: [...s.tasks, { id: nanoid(), text: s.input, checked: false }],
-      input: ""
-    }));
-  };
+  const deleteTask = id => dispatch({ type: "delete", payload: { id } });
+  const addTask = () => dispatch({ type: "add" });
+  const markTask = id => dispatch({ type: "mark", payload: { id } });
+  const updateInput = input => dispatch({ type: "update", payload: { input } });
 
-  const updateCurrentInput = input => {
-    setState(s => ({
-      ...s,
-      input: input
-    }));
-  };
   return (
     <div className="container">
       <h2 className="title">Simple to-do list</h2>
@@ -82,7 +82,7 @@ export const TodoList = () => {
         className="todo-list__container"
         onSubmit={e => {
           e.preventDefault();
-          onFormSubmit();
+          addTask();
         }}
       >
         <div className="input-container">
@@ -92,7 +92,7 @@ export const TodoList = () => {
             value={state.input}
             className="input"
             onChange={e => {
-              updateCurrentInput(e.target.value);
+              updateInput(e.target.value);
             }}
           />
 
@@ -110,7 +110,8 @@ export const TodoList = () => {
                 index={index}
                 checked={task.checked}
                 id={task.id}
-                setState={setState}
+                deleteTask={deleteTask}
+                markTask={markTask}
               />
             );
           })}
