@@ -252,6 +252,34 @@ html {
 .search-container {
   width: 300px;
 }
+.user__container {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  line-height: 16px;
+  padding: 10px 0;
+}
+.user__img {
+  border-radius: 25px;
+}
+.user__container a {
+  font-size: 16px;
+  color: rgb(65, 131, 196);
+  text-decoration: none;
+}
+.user__last-updated {
+  margin: 5px 0;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+}
+.user__info {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.search__list {
+  padding-left: 0;
+}
 
 @media (min-width: 750px) {
   .container {
@@ -274,6 +302,9 @@ html {
   }
   .search-container {
     width: 500px;
+  }
+  .search__list {
+    padding-left: 40px;
   }
 }
 

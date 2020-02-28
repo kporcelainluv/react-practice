@@ -11,7 +11,6 @@ const getQuery = () => {
 };
 
 const getLastUpdated = date => {
-  console.log(date);
   return formatDistance(new Date(date), new Date());
 };
 
@@ -103,23 +102,26 @@ export const GithubSearch = () => {
           <h3 className="subheading">There are no repos to display</h3>
         )}
         {state.isLoading && <Loader size={"small"} />}
-        <ul>
+        <ul className='search__list'>
           {state.list.map((elm, index) => {
-            console.log({ elm });
-
             return (
-              <li key={elm.id}>
-                <a className="" href={elm.html_url}>
-                  {elm.full_name}
-                  <p> last updated {getLastUpdated(elm.updated_at)}</p>
-                </a>
+              <li key={elm.id} className="user__container">
+                <img
+                  src={elm.owner.avatar_url}
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="user__img"
+                />
+                <div className="user__info">
+                  <a className="" href={elm.html_url}>
+                    {elm.full_name}{" "}
+                  </a>
+                  <p className="user__last-updated">
+                    last updated {getLastUpdated(elm.updated_at)}
+                  </p>
+                </div>
               </li>
-
-              // <p className="results__paragraph">{index + 1}.</p>
-              // <p className="results__paragraph grey">{elm.owner.login}:</p>
-              // <p className="results__paragraph results__paragraph--underlined">
-              //   {elm.name}
-              // </p>
             );
           })}
         </ul>
