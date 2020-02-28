@@ -22,6 +22,7 @@ export const GithubSearch = () => {
     query: query,
     list: [],
     isLoading: false,
+    emptyResult: false,
     error: false
   });
 
@@ -39,11 +40,24 @@ export const GithubSearch = () => {
 
   useEffect(() => {
     if (state.query) {
-      setState(s => ({ ...s, isLoading: true }));
+      setState(s => ({ ...s, isLoading: true, emptyResult: false }));
       getReposList(state)
-        .then(repos =>
-          setState(s => ({ ...s, list: repos.items, isLoading: false }))
-        )
+        .then(repos => {
+          if (repos.items.length > 0) {
+            setState(s => ({
+              ...s,
+              list: repos.items,
+              isLoading: false
+            }));
+          } else {
+            setState(s => ({
+              ...s,
+              list: repos.items,
+              isLoading: false,
+              emptyResult: true
+            }));
+          }
+        })
         .catch(() => setState(s => ({ ...s, error: true, isLoading: false })));
 
       window.history.pushState(
@@ -57,7 +71,7 @@ export const GithubSearch = () => {
   return (
     <div className="container">
       <form
-        className="container--centered"
+        className="container--centered search-container"
         onSubmit={e => {
           e.preventDefault();
           updateQuery(state.input);
@@ -79,18 +93,28 @@ export const GithubSearch = () => {
           </button>
         </div>
         {state.error && <Error />}
+        {state.emptyResult && (
+          <h3 className="subheading">There are no repos to display</h3>
+        )}
         {state.isLoading && <Loader size={"small"} />}
-        {state.list.map((elm, index) => {
-          return (
-            <a key={elm.id} className="results__container" href={elm.html_url}>
-              <p className="results__paragraph">{index}.</p>
-              <p className="results__paragraph ">{elm.owner.login}:</p>
-              <p className="results__paragraph results__paragraph--underlined">
-                {elm.name}
-              </p>
-            </a>
-          );
-        })}
+
+        <div>
+          {state.list.map((elm, index) => {
+            return (
+              <a
+                key={elm.id}
+                className="results__container"
+                href={elm.html_url}
+              >
+                <p className="results__paragraph">{index}.</p>
+                <p className="results__paragraph grey">{elm.owner.login}:</p>
+                <p className="results__paragraph results__paragraph--underlined">
+                  {elm.name}
+                </p>
+              </a>
+            );
+          })}
+        </div>
       </form>
     </div>
   );
