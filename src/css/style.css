@@ -306,6 +306,9 @@ html {
   .search__list {
     padding-left: 40px;
   }
+  .list {
+    max-width: 500px;
+  }
 }
 
 /*age*/
