@@ -137,6 +137,15 @@ html {
 .todo-button:hover {
   background-color: #f7fafc;
 }
+.button-svg {
+  margin: 0 3px;
+  border: none;
+  border-radius: 1px;
+  cursor: pointer;
+}
+.button-svg:hover {
+  background-color: #eee;
+}
 
 /*advanced counter*/
 .advanced-counter__container {
@@ -200,12 +209,17 @@ html {
   justify-content: space-between;
 }
 .todo-block__text {
-  font-size: 16px;
+  font-size: 20px;
   max-width: 250px;
+  display: flex;
+  align-items: baseline;
 }
 .todo-list__container {
   margin: auto;
   width: 350px;
+}
+.todo-block__seconds {
+  padding-left: 20px;
 }
 
 /*task*/

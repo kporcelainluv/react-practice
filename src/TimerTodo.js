@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import nanoid from "nanoid";
 import { TaskDescription } from "./TaskDescription";
+import { Icon } from "./Icon";
 
 const markTask = (tasks, id) => {
   return tasks.map(task => {
@@ -13,6 +14,13 @@ const markTask = (tasks, id) => {
 
 const deleteTask = (tasks, id) => {
   return tasks.filter(task => task.id !== id);
+};
+
+const separateMinsAndSec = seconds => {
+  if (seconds > 60) {
+    return `${seconds / 60} minutes ${seconds - 60 * (seconds / 2)} seconds`;
+  }
+  return `${seconds} seconds`;
 };
 
 const Task = ({ element, index, tasks, updateTasks }) => {
@@ -39,6 +47,9 @@ const Task = ({ element, index, tasks, updateTasks }) => {
     <section key={element.id} className="todo-block">
       <div className="todo-block__element">
         <label htmlFor="" className="todo-block__text">
+          <div style={{ display: "none" }}>
+            <include src="./css/sprite.svg" />
+          </div>
           <input
             type="checkbox"
             defaultChecked={element.checked}
@@ -46,48 +57,47 @@ const Task = ({ element, index, tasks, updateTasks }) => {
               return updateTasks(markTask(tasks, element.id));
             }}
           />
-          <span
-            style={
-              element.checked ? { textDecoration: "line-through" } : undefined
-            }
-          >
-            {index + 1}. {element.text}
+          <span style={element.checked ? { color: "grey" } : undefined}>
+            {element.text}
           </span>
         </label>
+        <div className="todo-block__buttons">
+          <button
+            className="button-svg"
+            type="button"
+            onClick={() => {
+              setState(s => ({ ...s, isTimerActive: true }));
+            }}
+          >
+            <Icon name={"start"} />
+          </button>
 
-        <span> {state.seconds} seconds </span>
+          <button
+            className="button-svg"
+            type="button"
+            onClick={() => {
+              setState(s => ({ ...s, isTimerActive: false }));
+            }}
+          >
+            <Icon name={"stop"} />
+          </button>
+          <button
+            className="button-svg"
+            type="button"
+            onClick={() => {
+              setState(s => ({ ...s, isTimerActive: false }));
+              return updateTasks(deleteTask(tasks, element.id));
+            }}
+          >
+            <Icon name={"delete"} />
+          </button>
+        </div>
       </div>
-      <div className="todo-block__buttons">
-        <button
-          className="todo-button"
-          type="button"
-          onClick={() => {
-            setState(s => ({ ...s, isTimerActive: true }));
-          }}
-        >
-          Start timer
-        </button>
 
-        <button
-          className="todo-button"
-          type="button"
-          onClick={() => {
-            setState(s => ({ ...s, isTimerActive: false }));
-          }}
-        >
-          Stop timer
-        </button>
-        <button
-          className="todo-button"
-          type="button"
-          onClick={() => {
-            setState(s => ({ ...s, isTimerActive: false }));
-            return updateTasks(deleteTask(tasks, element.id));
-          }}
-        >
-          Delete task
-        </button>
-      </div>
+      <span className="todo-block__seconds">
+        {" "}
+        {separateMinsAndSec(state.seconds)}
+      </span>
     </section>
   );
 };
@@ -118,7 +128,7 @@ export const TodoTimer = () => {
   return (
     <div className="container">
       <TaskDescription
-        title={"To-do list with counter"}
+        title={"To-do list with timer"}
         desc={[
           "look at Simple To-do List",
           "every item has it's own timer",
