@@ -1,23 +1,32 @@
 import React, { useReducer } from "react";
 import nanoid from "nanoid";
+import { TaskDescription } from "./TaskDescription";
+
+const TYPE = {
+  delete: "delete"
+};
 
 const reducer = (state, action) => {
   const tasks = state.tasks;
-  if (action.type === "delete") {
+
+  if (action.type === TYPE.delete) {
     const { id } = action.payload;
     return { ...state, tasks: tasks.filter(task => task.id !== id) };
   } else if (action.type === "mark") {
     const { id } = action.payload;
-    const updatedTasks = tasks.map(task => {
-      if (task.id === id) {
-        task.checked = !task.checked;
-      }
-      return task;
-    });
-    return { ...state, tasks: updatedTasks };
+    return {
+      ...state,
+      tasks: tasks.map(task => {
+        if (task.id === id) {
+          return { ...task, checked: !task.checked };
+        }
+        return task;
+      })
+    };
   } else if (action.type === "add") {
     return {
       ...state,
+      input: "",
       tasks: [...tasks, { id: nanoid(), text: state.input, checked: false }]
     };
   } else if (action.type === "update") {
@@ -26,11 +35,12 @@ const reducer = (state, action) => {
   }
 };
 
-const Tasks = ({ id, index, checked, text, deleteTask, markTask }) => {
+const Task = ({ index, task, deleteTask, markTask }) => {
+  const { id, checked, text } = task;
   return (
     <li className="todo-list__element">
       <div className="task-wrap">
-        <span className="task__element"> {index + 1}.</span>
+        <span className="task__element">{index + 1}.</span>
         <input
           type="checkbox"
           className="todo-checkbox"
@@ -56,7 +66,7 @@ const Tasks = ({ id, index, checked, text, deleteTask, markTask }) => {
 };
 
 const initialValue = {
-  input: "change button color",
+  input: "",
   tasks: [
     { id: nanoid(), text: "Make a to-do list in React.js", checked: true }
   ]
@@ -65,19 +75,21 @@ const initialValue = {
 export const TodoList = () => {
   const [state, dispatch] = useReducer(reducer, initialValue);
 
-  const deleteTask = id => dispatch({ type: "delete", payload: { id } });
+  const deleteTask = id => dispatch({ type: TYPE.delete, payload: { id } });
   const addTask = () => dispatch({ type: "add" });
   const markTask = id => dispatch({ type: "mark", payload: { id } });
   const updateInput = input => dispatch({ type: "update", payload: { input } });
 
   return (
     <div className="container">
-      <h2 className="title">Simple to-do list</h2>
-      <ul className="todo-list__list todo-list__list--shortened">
-        <li>add item from input to the list of todos</li>
-        <li>delete item from that list</li>
-        <li> mark items as "done</li>
-      </ul>
+      <TaskDescription
+        title={"Simple to-do list"}
+        desc={[
+          "add item from input to the list of todos",
+          "delete item from that list",
+          'mark items as "done'
+        ]}
+      />
       <form
         className="todo-list__container"
         onSubmit={e => {
@@ -88,34 +100,29 @@ export const TodoList = () => {
         <div className="input-container">
           <input
             type="text"
-            placeholder={state.input}
+            placeholder="Your todo"
             value={state.input}
             className="input"
-            onChange={e => {
-              updateInput(e.target.value);
-            }}
+            onChange={e => updateInput(e.target.value)}
           />
-
           <button className="black-button" type="submit">
             Enter
           </button>
         </div>
 
-        <ul className="todo-list">
+        <ol className="todo-list">
           {state.tasks.map((task, index) => {
             return (
-              <Tasks
+              <Task
                 key={task.id}
-                text={task.text}
                 index={index}
-                checked={task.checked}
-                id={task.id}
+                task={task}
                 deleteTask={deleteTask}
                 markTask={markTask}
               />
             );
           })}
-        </ul>
+        </ol>
       </form>
     </div>
   );

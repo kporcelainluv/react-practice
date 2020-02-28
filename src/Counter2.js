@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import nanoid from "nanoid";
+import { TaskDescription } from "./TaskDescription";
 
 const reducer = (counters, action) => {
   const type = action.type;
@@ -43,12 +44,20 @@ export const AdvancedCounter = () => {
 
   return (
     <div className="container">
-      <h2 className="title">Advanced counter</h2>
-      <ul className="advanced-counter__list">
-        <li>several counters at once</li>
-        <li>add counter with 0 value by default</li>
-        <li>remove specific counter</li>
-      </ul>
+      <TaskDescription
+        title="Advanced counter"
+        desc={[
+          "several counters at once",
+          "add counter with 0 value by default",
+          "remove specific counter"
+        ]}
+      />
+      {/*<h2 className="title">Advanced counter</h2>*/}
+      {/*<ul className="advanced-counter__list">*/}
+      {/*  <li>several counters at once</li>*/}
+      {/*  <li>add counter with 0 value by default</li>*/}
+      {/*  <li>remove specific counter</li>*/}
+      {/*</ul>*/}
       <div className="advanced-counter__container">
         <form
           onSubmit={e => {

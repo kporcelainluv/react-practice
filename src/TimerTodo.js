@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import nanoid from "nanoid";
+import { TaskDescription } from "./TaskDescription";
 
 const markTask = (tasks, id) => {
   return tasks.map(task => {
@@ -80,9 +81,7 @@ const Task = ({ element, index, tasks, updateTasks }) => {
           className="todo-button"
           type="button"
           onClick={() => {
-            if (intervalId.current) {
-              clearInterval(intervalId.current);
-            }
+            setState(s => ({ ...s, isTimerActive: false }));
             return updateTasks(deleteTask(tasks, element.id));
           }}
         >
@@ -118,13 +117,15 @@ export const TodoTimer = () => {
 
   return (
     <div className="container">
-      <h2 className="title">To-do list with counter</h2>
-      <ul className="container--centered">
-        <li>look at Simple To-do List</li>
-        <li> every item has it's own timer</li>
-        <li> activate this timer with start button</li>
-        <li> deactivate this timer with stop button</li>
-      </ul>
+      <TaskDescription
+        title={"To-do list with counter"}
+        desc={[
+          "look at Simple To-do List",
+          "every item has it's own timer",
+          "activate this timer with start button",
+          "deactivate this timer with stop button"
+        ]}
+      />
       <form
         className="todo-list__container"
         onSubmit={e => {
