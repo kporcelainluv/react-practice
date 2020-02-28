@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import formatDistance from "date-fns/formatDistance";
 
 import { Loader } from "./Loader";
 import "./css/loader.css";
@@ -7,6 +8,11 @@ import { Error } from "./Error";
 const getQuery = () => {
   const sp = new URLSearchParams(window.location.search);
   return sp.get("query");
+};
+
+const getLastUpdated = date => {
+  console.log(date);
+  return formatDistance(new Date(date), new Date());
 };
 
 const getReposList = state => {
@@ -97,24 +103,26 @@ export const GithubSearch = () => {
           <h3 className="subheading">There are no repos to display</h3>
         )}
         {state.isLoading && <Loader size={"small"} />}
-
-        <div>
+        <ul>
           {state.list.map((elm, index) => {
+            console.log({ elm });
+
             return (
-              <a
-                key={elm.id}
-                className="results__container"
-                href={elm.html_url}
-              >
-                <p className="results__paragraph">{index}.</p>
-                <p className="results__paragraph grey">{elm.owner.login}:</p>
-                <p className="results__paragraph results__paragraph--underlined">
-                  {elm.name}
-                </p>
-              </a>
+              <li key={elm.id}>
+                <a className="" href={elm.html_url}>
+                  {elm.full_name}
+                  <p> last updated {getLastUpdated(elm.updated_at)}</p>
+                </a>
+              </li>
+
+              // <p className="results__paragraph">{index + 1}.</p>
+              // <p className="results__paragraph grey">{elm.owner.login}:</p>
+              // <p className="results__paragraph results__paragraph--underlined">
+              //   {elm.name}
+              // </p>
             );
           })}
-        </div>
+        </ul>
       </form>
     </div>
   );
