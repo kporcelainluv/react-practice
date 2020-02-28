@@ -10,12 +10,13 @@ const Counter = () => {
     <div className="container">
       <h2 className="title">Add simple counter</h2>
       <div className="counter-container">
-        <button className="button" onClick={inc}>
-          +
-        </button>
-        <span className="counter-number">{number}</span>
         <button className="button" onClick={dec}>
           -
+        </button>
+        <span className="counter-number">{number}</span>
+
+        <button className="button" onClick={inc}>
+          +
         </button>
       </div>
     </div>
