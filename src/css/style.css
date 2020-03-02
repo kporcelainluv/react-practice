@@ -323,115 +323,42 @@ html {
   .list {
     max-width: 500px;
   }
+  .container__ml {
+    margin-left: 37%;
+  }
 }
 
 /*age*/
-.age-element {
-  margin: 5px;
-  display: flex;
+
+.pulsating-circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 70px;
+  height: 70px;
 }
-.age-element__years {
-  margin-right: 30px;
-  background: #b5838d;
+.pulsating-circle:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 255px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #ff6d88;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-}
-.age-element__months {
-  margin-right: 30px;
-  background: #6d6875;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-}
-.age-element__weeks {
-  margin-right: 30px;
-  background: #ffcdb2;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-}
-.age-element__days {
-  margin-right: 30px;
-  background: #ffb4a2;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  animation: pulse-dot 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite;
 }
 
-.age-element__hours {
-  margin-right: 30px;
-  background: #e5989b;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-}
-.age-element__minutes {
-  margin-right: 30px;
-  background: #b5838d;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-}
-.age-element__seconds {
-  margin-right: 30px;
-  background: #6d6875;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-}
-
-.radial-chart {
-  transition: all 0.3s ease-in;
-}
-.radial-chart.no-progress .radial-chart-progress {
-  opacity: 0;
-}
-.radial-chart-total {
-  opacity: 0.3;
-}
-.radial-chart-progress {
-  transform: rotate(270deg);
-  transform-origin: center;
-  transition: all 0.6s cubic-bezier(0.58, 0.16, 0.5, 1.14);
-  transition-delay: 0.3s;
-}
-.cicles {
-  position: relative;
-  margin: 50px;
-}
-.circle-1 {
-  position: absolute;
-  top: 238px;
-  left: 75px;
-}
-.circle-2 {
-  position: absolute;
-  top: 222px;
-  left: 60px;
-}
-.circle-3 {
-  position: absolute;
-  top: 176px;
-  left: 15px;
-}
-.circle-4 {
-  position: absolute;
-  top: 127px;
-  left: -30px;
-}
-.circle-5 {
-  position: absolute;
-  top: 81px;
-  left: -60px;
-}
-.circle-6 {
-  position: absolute;
-  top: 36px;
-  left: -90px;
-}
-.circle-7 {
-  position: absolute;
-  top: -17px;
-  left: -132px;
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+  }
 }

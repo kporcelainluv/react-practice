@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   getDiffYears,
   getdiffMonths,
@@ -9,85 +9,12 @@ import {
   getDiffSecs
 } from "./utils";
 
-import ReactApexChart from "react-apexcharts";
+import "./css/style.css";
 
-const options = {
-  chart: {
-    // height: 550,
-    width: 800,
-    type: "radialBar"
-  },
-  plotOptions: {
-    radialBar: {
-      offsetY: 0,
-      startAngle: 0,
-      endAngle: 360,
-      hollow: {
-        margin: 10,
-        size: "10%",
-        background: "transparent",
-        image: undefined
-      },
-      dataLabels: {
-        name: {
-          show: false
-        },
-        value: {
-          show: false
-        }
-      }
-    }
-    // hundreds: "#ff6d88",
-  },
-  colors: [
-    "#cbb4f5",
-    "#79c2ff",
-    "#69e4dd",
-    "#5ee697",
-    "#92e16c",
-    "#fdc958",
-    "#fe8f54"
-  ],
-  labels: ["Years", "Months", "Weeks", "Days", "Hours", "Minutes", "Seconds"],
-  legend: {
-    show: true,
-    floating: true,
-    fontSize: "20px",
-    position: "left",
-    offsetX: 0,
-    offsetY: 0,
-    labels: {
-      useSeriesColors: true
-    },
-    markers: {
-      size: 0
-    },
-    formatter: function(seriesName, opts) {
-      return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
-    },
-    itemMargin: {
-      horizontal: 3
-    }
-  },
-  responsive: [
-    {
-      breakpoint: 750,
-      options: {
-        width: 350,
-        height: 950,
-
-        legend: {
-          show: true,
-          position: "bottom",
-          offsetY: 100
-        }
-      }
-    }
-  ]
-};
-
-const Donut = () => {
-  return;
+const countProgress = (radius, progress) => {
+  const circumference = 2 * 3.14 * radius;
+  const strokeLength = (circumference / 100) * progress;
+  return `${strokeLength}, ${circumference}`;
 };
 
 export const Age = () => {
@@ -105,70 +32,149 @@ export const Age = () => {
   const diffMinutes = getDiffMins({ year, month, day });
   const diffSeconds = getDiffSecs({ year, month, day });
 
-  const series = [
-    diffYears,
-    diffMonths,
-    diffWeeks,
-    diffDays,
-    diffHours,
-    diffMinutes,
-    diffSeconds
-  ];
-
   useEffect(() => {
     setInterval(() => {
       updateTimer(x => x + 1);
     }, 1000);
   }, []);
 
+  const theme = {
+    bg: "white",
+    track: "#f4f4f4",
+    text: "rgba(0,0,0,0.6)",
+    hundreds: "#ff6d88",
+    seconds: "#fe8f54",
+    minutes: "#fdc958",
+    hours: "#92e16c",
+    days: "#5ee697",
+    weeks: "#69e4dd",
+    months: "#79c2ff",
+    years: "#cbb4f5"
+  };
+
   return (
     <div className="container">
-      <svg
-        viewBox="0 0 120 120"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="60" cy="60" r="50">
-          <text x="25">
-            <textPath xlinkHref="#curve">Dangerous Curves Ahead</textPath>
-          </text>
-        </circle>
-        <circle cx="60" cy="60" r="44" fill={"white"} />
-        <circle
-          cx="60"
-          cy="60"
-          r="47"
-          fill="transparent"
-          stroke="green"
-          strokeWidth={"6"}
-          strokeDasharray={"149,464, 213.52"}
-          style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
-          // strokeWidth="3"
-          // strokeDasharray="85 15"
-          // strokeDashoffset="0"
-        />
-      </svg>
-      <h2 className="title">Enter your age</h2>
+      <h2 className="title title--centered">Enter your age</h2>
       <form
         style={{ margin: "auto" }}
         onSubmit={e => {
           e.preventDefault();
         }}
       >
-        <input
-          className="input"
-          type="date"
-          onChange={e => {
-            setAge(e.target.value);
-          }}
-        />
-        <button className="button">Enter</button>
-        <p>Your Birthday is: {age}</p>
-
-        <div id="chart">
-          <ReactApexChart options={options} series={series} type="radialBar" />
+        {" "}
+        <div className="input-container">
+          <input
+            className="input"
+            type="date"
+            onChange={e => {
+              setAge(e.target.value);
+            }}
+          />
+          <button className="black-button">Enter</button>
         </div>
+        <p>Your Birthday is: {age}</p>
       </form>
+      <svg
+        viewBox="0 0 120 120"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          <circle cx="60" cy="60" r="55" fill={"#F4F4F4"} />
+          <circle cx="60" cy="60" r="49" fill={"white"} />
+
+          <circle
+            cx="60"
+            cy="60"
+            r="52"
+            fill="transparent"
+            stroke={theme.years}
+            strokeWidth={"6"}
+            strokeDasharray={countProgress(52, diffYears)}
+            style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
+          />
+
+          <circle cx="60" cy="60" r="48" fill={"#F4F4F4"} />
+          <circle cx="60" cy="60" r="42" fill={"white"} />
+          <circle
+            cx="60"
+            cy="60"
+            r="45"
+            fill="transparent"
+            stroke={theme.months}
+            strokeWidth={"6"}
+            strokeDasharray={countProgress(45, diffMonths)}
+            style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
+          />
+
+          <circle cx="60" cy="60" r="41" fill={"#F4F4F4"} />
+          <circle cx="60" cy="60" r="35" fill={"white"} />
+          <circle
+            cx="60"
+            cy="60"
+            r="38"
+            fill="transparent"
+            stroke={theme.weeks}
+            strokeWidth={"6"}
+            strokeDasharray={countProgress(38, diffWeeks)}
+            style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
+          />
+
+          <circle cx="60" cy="60" r="34" fill={"#F4F4F4"} />
+          <circle cx="60" cy="60" r="28" fill={"white"} />
+          <circle
+            cx="60"
+            cy="60"
+            r="31"
+            fill="transparent"
+            stroke={theme.days}
+            strokeWidth={"6"}
+            strokeDasharray={countProgress(31, diffDays)}
+            style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
+          />
+
+          <circle cx="60" cy="60" r="27" fill={"#F4F4F4"} />
+          <circle cx="60" cy="60" r="21" fill={"white"} />
+          <circle
+            cx="60"
+            cy="60"
+            r="24"
+            fill="transparent"
+            stroke={theme.hours}
+            strokeWidth={"6"}
+            strokeDasharray={countProgress(24, diffHours)}
+            style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
+          />
+
+          <circle cx="60" cy="60" r="20" fill={"#F4F4F4"} />
+          <circle cx="60" cy="60" r="14" fill={"white"} />
+          <circle
+            cx="60"
+            cy="60"
+            r="17"
+            fill="transparent"
+            stroke={theme.minutes}
+            strokeWidth={"6"}
+            strokeDasharray={countProgress(17, diffMinutes)}
+            style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
+          />
+
+          <circle cx="60" cy="60" r="13" fill={"#F4F4F4"} />
+          <circle cx="60" cy="60" r="7" fill={"white"} />
+          <circle
+            cx="60"
+            cy="60"
+            r="10"
+            fill="transparent"
+            stroke={theme.seconds}
+            strokeWidth={"6"}
+            strokeDasharray={countProgress(10, diffSeconds)}
+            style={{ transform: "rotate(270deg)", transformOrigin: "center" }}
+          />
+        </g>
+      </svg>
+
+      <div className="pulsating-circle" />
     </div>
   );
 };

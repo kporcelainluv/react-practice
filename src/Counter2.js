@@ -46,18 +46,14 @@ export const AdvancedCounter = () => {
     <div className="container">
       <TaskDescription
         title="Advanced counter"
+        className={" container__ml"}
         desc={[
           "several counters at once",
           "add counter with 0 value by default",
           "remove specific counter"
         ]}
       />
-      {/*<h2 className="title">Advanced counter</h2>*/}
-      {/*<ul className="advanced-counter__list">*/}
-      {/*  <li>several counters at once</li>*/}
-      {/*  <li>add counter with 0 value by default</li>*/}
-      {/*  <li>remove specific counter</li>*/}
-      {/*</ul>*/}
+
       <div className="advanced-counter__container">
         <form
           onSubmit={e => {

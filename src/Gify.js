@@ -13,7 +13,7 @@ const Form = ({ state, updateQuery, updateInput }) => {
         <input
           className="input"
           type="text"
-          placeholder={state.input}
+          placeholder={"Scrubs"}
           value={state.input}
           onChange={e => {
             updateInput(e.target.value);
@@ -54,7 +54,7 @@ export const Gify = () => {
   const [state, setState] = useState({
     query: "scrubs",
     gifs: [],
-    input: "Scrubs"
+    input: ""
   });
 
   const updateQuery = input => {
