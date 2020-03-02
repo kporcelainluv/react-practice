@@ -4,6 +4,7 @@ import formatDistance from "date-fns/formatDistance";
 import { Loader } from "./Loader";
 import "./css/loader.css";
 import { Error } from "./Error";
+import { TaskDescription } from "./TaskDescription";
 
 const getQuery = () => {
   const sp = new URLSearchParams(window.location.search);
@@ -75,6 +76,13 @@ export const GithubSearch = () => {
 
   return (
     <div className="container">
+      <TaskDescription
+        title={"Github search"}
+        desc={[
+          "Enter a key word and search for popular repositories",
+          "Page saves last searched keyword after reload"
+        ]}
+      />
       <form
         className="container--centered search-container"
         onSubmit={e => {
@@ -82,12 +90,11 @@ export const GithubSearch = () => {
           updateQuery(state.input);
         }}
       >
-        <h2 className="title">Type in repo name and get a list of repos</h2>
         <div className="input-container">
           <input
             className="input"
             type="text"
-            placeholder={"preact"}
+            placeholder={"react"}
             value={state.input}
             onChange={e => {
               updateInput(e.target.value);
@@ -102,7 +109,7 @@ export const GithubSearch = () => {
           <h3 className="subheading">There are no repos to display</h3>
         )}
         {state.isLoading && <Loader size={"small"} />}
-        <ul className='search__list'>
+        <ul className="search__list">
           {state.list.map((elm, index) => {
             return (
               <li key={elm.id} className="user__container">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   getDiffYears,
   getdiffMonths,
@@ -61,7 +61,6 @@ export const Age = () => {
           e.preventDefault();
         }}
       >
-        {" "}
         <div className="input-container">
           <input
             className="input"
@@ -72,7 +71,11 @@ export const Age = () => {
           />
           <button className="black-button">Enter</button>
         </div>
-        <p>Your Birthday is: {age}</p>
+        <p>
+          You are {diffYears} years, {diffMonths} months, {diffWeeks} weeks,
+          {diffMonths} months, {diffDays} days, {diffMinutes} mins,
+          {diffSeconds} sec
+        </p>
       </form>
       <svg
         viewBox="0 0 120 120"

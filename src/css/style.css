@@ -56,7 +56,6 @@ html {
 
 .project-list {
   font-size: 20px;
-  margin-left: 100px;
 }
 
 .project-list a {
@@ -295,6 +294,14 @@ html {
   padding-left: 0;
 }
 
+.reset-timer__container {
+  margin: 100px auto;
+  text-align: center;
+}
+.project-list__desc {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 16px;
+}
 @media (min-width: 750px) {
   .container {
     width: 700px;
@@ -326,6 +333,9 @@ html {
   .container__ml {
     margin-left: 37%;
   }
+  .project-list {
+    margin-left: 50px;
+  }
 }
 
 /*age*/
@@ -342,7 +352,7 @@ html {
   content: "";
   position: absolute;
   left: 0;
-  top: 255px;
+  top: 58px;
   display: block;
   width: 100%;
   height: 100%;

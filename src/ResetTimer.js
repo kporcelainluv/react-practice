@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import nanoid from "nanoid";
+import { TaskDescription } from "./TaskDescription";
 
 export const ResetTimer = () => {
   const [state, setState] = useState({
@@ -24,9 +25,15 @@ export const ResetTimer = () => {
   }, [state.clickId]);
 
   return (
-    <div style={{ margin: "100px auto" }}>
+    <div className="reset-timer__container">
+      <TaskDescription
+        title={"Resetting timer"}
+        desc={[
+          "Press the button to start timer",
+          "Press the button again to reset the timer"
+        ]}
+      />
       <button
-        style={{ margin: "auto", display: "flex" }}
         className="button"
         type="button"
         onClick={() => {

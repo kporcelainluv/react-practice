@@ -14,6 +14,7 @@ export const ProjectsList = ({ link }) => {
           return (
             <li key={nanoid()}>
               <a href={pathToComponent}>{project.name}</a>
+              <span className='project-list__desc'>- {project.desc}</span>
             </li>
           );
         })}
