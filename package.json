@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
-    "d3": "^5.9.7",
+    "d3": "^7.6.1",
     "date-fns": "2.10.0",
     "igniteui-react-charts": "^16.6.12",
     "igniteui-react-core": "^16.6.12",
